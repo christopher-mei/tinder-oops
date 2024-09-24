@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { Sequelize } = require('sequelize');
 const userController = require('./controllers/userController'); // Updated path
 const sequelize = require('./util/database'); // Import the Sequelize instance
+const path = require('path'); // Add this line
 
 
 
@@ -16,6 +17,10 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
+// Serve the landing page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Initialize Sequelize
 /*
