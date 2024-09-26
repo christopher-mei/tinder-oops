@@ -8,7 +8,7 @@ const { Sequelize } = require('sequelize');
 const userController = require('./controllers/userController'); // Updated path
 const sequelize = require('./util/database'); // Import the Sequelize instance
 const path = require('path'); // Add this line
-
+const jwt = require('jsonwebtoken'); // Add this line
 
 
 const app = express();
@@ -46,9 +46,23 @@ sequelize.sync()
 .then(() => console.log('Models synchronized...'))
 .catch(err => console.log('Error: ' + err));
 
+// JWT Authentication Middleware
+function verifyToken(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(403).send('A token is required for authentication');
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+  } catch (err) {
+    return res.status(401).send('Invalid Token');
+  }
+  return next();
+}
 
   // Use routes
-app.use('/api/users', userController);
+app.use('/api/users', verifyToken, userController);
 
 
 
