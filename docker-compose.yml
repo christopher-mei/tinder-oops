@@ -19,10 +19,7 @@ services:
     build: .
     container_name: app_container
     environment:
-      DATABASE_HOST: db
-      DATABASE_USER: your_username
-      DATABASE_PASSWORD: your_password
-      DATABASE_NAME: your_database
+      DATABASE_URL: postgres://your_username:your_password@db:5432/your_database
     depends_on:
       - db
     ports:
