@@ -7,12 +7,6 @@ const sequelize = new Sequelize(
     port: process.env.DATABASE_PORT || 5432, // Default to 5432 if DATABASE_PORT is not set
     dialect: 'postgres',
     protocol: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false // This is necessary for some cloud providers
-      }
-    }
   }
 );
 
@@ -24,6 +18,5 @@ sequelize
   .catch((error) => {
     console.error('Unable to connect to the database:', error);
   });
-
 
 module.exports = sequelize;
