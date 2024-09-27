@@ -1,12 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); // Import jsonwebtoken
-const User = require('../models/User'); // Import the User model
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 const userRouter = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET; // Use the environment variable
+const JWT_SECRET = process.env.JWT_SECRET;
 
-// User registration route
+// User registration route (public)
 userRouter.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -18,7 +18,7 @@ userRouter.post('/register', async (req, res) => {
   }
 });
 
-// User login route
+// User login route (public)
 userRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -37,9 +37,9 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
-// Middleware to verify JWT
+// Middleware to verify JWT (protected)
 const authenticate = (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
+  const token = req.header('Authorization')?.replace('Bearer ', '');
   if (!token) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
   }

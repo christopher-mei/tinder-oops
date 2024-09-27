@@ -62,7 +62,7 @@ function verifyToken(req, res, next) {
 }
 
   // Use routes
-app.use('/api/users', verifyToken, userController);
+app.use('/api/users', userController);
 
 
 
