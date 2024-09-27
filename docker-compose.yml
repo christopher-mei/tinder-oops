@@ -12,7 +12,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+    networks:
+      - mynetwork
+      
   app:
     build: .
     container_name: app_container
@@ -27,7 +29,12 @@ services:
       - "3001:3001"
     volumes:
       - .:/app
+    networks:
+      - mynetwork
     command: npm start
 
 volumes:
   postgres_data:
+
+networks:
+  mynetwork:
