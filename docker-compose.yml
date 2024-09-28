@@ -19,7 +19,7 @@ services:
     build: .
     container_name: app_container
     environment:
-      DATABASE_URL: postgres://your_username:your_password@db:5432/your_database
+      DATABASE_URL: postgres://uabkjt577cjs7:p6d5f458b69dee6b5209ec341e3bebb93d345387c9f95946b8d401ec7a2d8ef6c@c8m0261h0c7idk.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/ddqm41aten05tj
     depends_on:
       - db
     ports:

@@ -1,14 +1,16 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
-  process.env.DATABASE_URL,
-  {
-    host: process.env.DATABASE_HOST,
-    port: process.env.DATABASE_PORT || 5432, // Default to 5432 if DATABASE_PORT is not set
-    dialect: 'postgres',
-    protocol: 'postgres',
-  }
-);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+  logging: false,
+});
 
 sequelize
   .authenticate()
