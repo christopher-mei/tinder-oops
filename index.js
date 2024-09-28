@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken'); // Add this line
 const app = express();
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 3000; // Use the PORT environment variable or default to 3000
 
 // middleware
 app.use(express.json());
@@ -66,6 +67,6 @@ app.use('/api/users', userController);
 
 
 
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
