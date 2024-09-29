@@ -20,6 +20,7 @@ userRouter.post('/register', async (req, res) => {
 
 // User login route (public)
 userRouter.post('/login', async (req, res) => {
+  console.log('Login request body:', req.body); // Log the request body
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ where: { email } });
