@@ -66,4 +66,30 @@ userRouter.get('/profile', authenticate, async (req, res) => {
   }
 });
 
+// User update route (protected)
+userRouter.put('/update', authenticate, async (req, res) => {
+  const { name, email, bio, age, photo, location } = req.body;
+  try {
+    const user = await User.findByPk(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update user fields
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.bio = bio || user.bio;
+    user.age = age || user.age;
+    user.photo = photo || user.photo;
+    user.location = location || user.location;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({ message: 'User updated successfully', user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = userRouter;
